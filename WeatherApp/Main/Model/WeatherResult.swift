@@ -41,7 +41,6 @@ struct Clouds: Decodable {
 
 struct Wind: Decodable {
     let speed: Double
-    let deg: Double
 }
 
 extension WeatherResult {

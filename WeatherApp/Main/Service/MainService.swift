@@ -37,8 +37,8 @@ final class MainService: Networking {
                 }
                 return
             }
-            
-            guard let data = data else {
+        
+            guard let data = data else { 
                 DispatchQueue.main.async {
                     completion(.failure(.noData))
                 }
@@ -47,12 +47,12 @@ final class MainService: Networking {
             
             do {
                 let result = try JSONDecoder().decode(WeatherResult.self, from: data)
-                
                 DispatchQueue.main.async {
                     completion(.success(result))
                 }
-            } catch {
+            } catch let error {
                 DispatchQueue.main.async {
+                    print("Error is \(error.localizedDescription)")
                     completion(.failure(.decodeError))
                 }
             }
@@ -88,7 +88,6 @@ final class MainService: Networking {
                 
                 switch result {
                     case .success(let info):
-                        
                         observer.onNext(info)
                         observer.onCompleted()
                     case .failure(let error):
